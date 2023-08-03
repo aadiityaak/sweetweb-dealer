@@ -24,7 +24,7 @@ function create_post_type_mobil()
             'rewrite' => array('slug' => 'mobil'),
             'supports' => array('title', 'editor', 'thumbnail'),
             'menu_icon'   => 'dashicons-car',
-            'show_in_rest' => true
+            'show_in_rest' => false
         )
     );
 }
