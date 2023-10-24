@@ -23,7 +23,7 @@ function your_prefix_register_meta_boxes($meta_boxes)
         'context'    => 'normal',
         'fields'     => [
             [
-                'type'  => 'text',
+                'type'  => 'key_value',
                 'name'  => esc_html__('Harga', 'online-generator'),
                 'id'    => $prefix . 'harga',
                 'desc'  => esc_html__('Tuliskan Type = harga Contoh: Civic tipe R=IDR 1.400.500.000', 'online-generator'),

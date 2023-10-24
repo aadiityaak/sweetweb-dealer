@@ -12,6 +12,7 @@ $sweetweb_inc_dir = 'inc';
 
 // Array of files to include.
 $sweetweb_includes = array(
+  'function-child.php', 
   'post-type.php',                  // Initialize theme default settings.
   'metabox.php',
 );
