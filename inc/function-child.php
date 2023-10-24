@@ -10,12 +10,10 @@
 defined('ABSPATH') || exit;
 
 // Funsdi untuk mendapatkan harga pertama dari post meta harga
-function ambil_harga_pertama($post_id)
+function wss_first_price($post_id = null)
 {
     ob_start();
-
     $harga_array = get_post_meta($post_id, 'harga', true); // output array
-
     if ($harga_array) {
         foreach ($harga_array as $harga) {
             $harga_mobil = isset($harga[1]) ? 'Rp ' . number_format(preg_replace("/[^0-9]/", "", $harga[1]), 2, ',', '.') : '-';
@@ -25,13 +23,12 @@ function ambil_harga_pertama($post_id)
     } else {
         echo '-'; // Output a dash if no price is found
     }
-
     return ob_get_clean(); // Capture and return the buffered output
 }
 
 
 //Fungsi Feature Spesial
-function create_func_feature()
+function wss_list_feature()
 {
     $fitur_spesial_values = get_post_meta(get_the_ID(), 'fitur_spesial', true);
 
@@ -43,9 +40,10 @@ function create_func_feature()
         foreach ($chunks as $chunk) {
             echo '<div class="col-md-' . (12 / $columns_per_row) . '">';
             foreach ($chunk as $fitur_spesial_value) {
-                echo '<p class="my-1"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-  <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
-</svg> ' . esc_html($fitur_spesial_value) . '</p>';
+                echo '<p class="my-1">';
+                echo '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/></svg> ';
+                echo esc_html($fitur_spesial_value);
+                echo '</p>';
             }
             echo '</div>';
         }
@@ -54,7 +52,7 @@ function create_func_feature()
 }
 
 // Fungsi total type mobil
-function count_mobil_types()
+function wss_count_types()
 {
     $harga_values = get_post_meta(get_the_ID(), 'harga', true);
 
@@ -73,7 +71,7 @@ function count_mobil_types()
 
 
 // Fungsi harga produk
-function harga_produk()
+function wss_price()
 {
     $hargas = get_post_meta(get_the_ID(), 'harga', true);
     ob_start();
@@ -120,7 +118,7 @@ function harga_produk()
 
 
 //FUNGSI GALERI
-function func_gallery_mobil()
+function wss_gallery()
 {
     ob_start();
     global $post;
@@ -128,57 +126,57 @@ function func_gallery_mobil()
     $gallery = get_post_meta($post_id, 'gallery', false);
 
     ?>
-<div id="carouselExampleIndicators" class="carousel slide">
-  <div class="carousel-indicators">
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-  </div>
-  <div class="carousel-inner">
-  <?php
-  $i = 1;
-    foreach ($gallery as $gal) {
-        $image_url = wp_get_attachment_url($gal);
-        $j = $i++;
-        $active =  ($j == 1) ? 'active' : '';
-        echo '<div class="carousel-item '.$active.'">';
-            echo '<div class="px-1 rounded d-block w-100">';
-                // echo '<a href="' . $image_url . '" class="glightbox" data-gallery="gallery1">';
-                    echo '<img class="w-100" src="' . $image_url . '" alt="">';
-                // echo '</a>';
+    <div id="carouselExampleIndicators" class="carousel slide">
+    <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+    <?php
+    $i = 1;
+        foreach ($gallery as $gal) {
+            $image_url = wp_get_attachment_url($gal);
+            $j = $i++;
+            $active =  ($j == 1) ? 'active' : '';
+            echo '<div class="carousel-item '.$active.'">';
+                echo '<div class="px-1 rounded d-block w-100">';
+                    // echo '<a href="' . $image_url . '" class="glightbox" data-gallery="gallery1">';
+                        echo '<img class="w-100" src="' . $image_url . '" alt="">';
+                    // echo '</a>';
+                echo '</div>';
             echo '</div>';
-        echo '</div>';
-    }
-    ?>
-  </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
-</div>
+        }
+        ?>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+    </div>
     <?php
     return ob_get_clean();
 }
 
 
 //FUNGSI URL VIDEO
-function get_video_embed_from_meta()
+function wss_get_video()
 {
     global $post;
     $post_id = $post->ID;
 
     // Dapatkan kode oembed dari custom post meta dengan nama "video"
     $video_oembed = get_post_meta($post_id, 'video', true);
-    $video_oembed = getYouTubeVideoId($video_oembed);
+    $video_oembed = wss_youtube_id($video_oembed);
     // Tampilkan video dalam elemen HTML dengan format oembed
     ob_start();
     if ($video_oembed) {
         echo '<div class="ratio ratio-16x9">';
-            echo '<iframe width="100%" src="https://www.youtube.com/embed/'.$video_oembed.'" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>';
+            echo '<iframe class="rounded" width="100%" src="https://www.youtube.com/embed/'.$video_oembed.'" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>';
 
         echo '</div>';
     } else {
@@ -190,7 +188,7 @@ function get_video_embed_from_meta()
 }
 
 // Mendapatkan ID Video
-function getYouTubeVideoId($url) {
+function wss_youtube_id($url) {
     $query = parse_url($url, PHP_URL_QUERY);
 
     // Check if the video ID is in the query string
@@ -209,115 +207,91 @@ function getYouTubeVideoId($url) {
     return false; // Video ID not found in the URL
 }
 
-// FUNGSI SHARE
-function generateShareLinks($url, $title)
-{
-    $encodedTitle = urlencode($title);
-    $encodedUrl = urlencode($url);
-
-    $facebookLink = "https://www.facebook.com/sharer/sharer.php?u={$encodedUrl}";
-    $twitterLink = "https://twitter.com/intent/tweet?url={$encodedUrl}&text={$encodedTitle}";
-    $whatsappLink = "https://api.whatsapp.com/send?text={$encodedTitle}%20{$encodedUrl}";
-
-    $shareLinks = [
-        'facebook' => $facebookLink,
-        'twitter' => $twitterLink,
-        'whatsapp' => $whatsappLink,
-    ];
-
-    return $shareLinks;
-}
-
-$pageUrl = "https://example.com"; // Ganti dengan URL halaman Anda
-$pageTitle = "Contoh Halaman Berbagi"; // Ganti dengan judul halaman Anda
-
-$shareLinks = generateShareLinks($pageUrl, $pageTitle);
 
 //FUNCTION SLEDER POST MOBIL
-function create_slider_cars_product()
-{
+function wss_carousel(){
     ob_start();
-?>
-<div id="carouselExampleIndicators" class="carousel slide">
-    <div class="carousel-indicators">
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
-            aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
-            aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
-            aria-label="Slide 3"></button>
-    </div>
-    <div class="carousel-inner">
-        <?php
-            $query = new WP_Query(array('post_type' => 'mobil'));
-            if ($query->have_posts()) {
-            ?>
-        <header class="page-header">
-            <?php
-                    the_archive_title('<h1 class="page-title">', '</h1>');
-                    the_archive_description('<div class="taxonomy-description">', '</div>');
-                    ?>
-        </header><!-- .page-header -->
-        <?php
-                // Start the loop.
-                $i = 0;
-                while ($query->have_posts()) {
-                    $query->the_post();
-
-                    // print_r($image);
-                    $active = ($i++ == 0) ? 'active' : '';
-                ?>
-        <div class="carousel-item <?php echo $active ?>">
-            <?php echo get_archive_produk(); ?>
+    ?>
+    <div id="carouselExampleIndicators" class="carousel slide">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
+                aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+                aria-label="Slide 3"></button>
         </div>
-        <?php
+        <div class="carousel-inner">
+            <?php
+                $query = new WP_Query(array('post_type' => 'mobil'));
+                if ($query->have_posts()) {
+                ?>
+            <header class="page-header">
+                <?php
+                        the_archive_title('<h1 class="page-title">', '</h1>');
+                        the_archive_description('<div class="taxonomy-description">', '</div>');
+                        ?>
+            </header><!-- .page-header -->
+            <?php
+                    // Start the loop.
+                    $i = 0;
+                    while ($query->have_posts()) {
+                        $query->the_post();
 
+                        // print_r($image);
+                        $active = ($i++ == 0) ? 'active' : '';
+                    ?>
+            <div class="carousel-item <?php echo $active ?>">
+                <?php echo wss_product(); ?>
+            </div>
+            <?php
+
+                    }
+                } else {
+                    get_template_part('loop-templates/content', 'none');
                 }
-            } else {
-                get_template_part('loop-templates/content', 'none');
-            }
-            ?>
+                ?>
 
 
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+            data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+            data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
     </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
-        data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
-        data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-    </button>
-</div>
-<?php
+    <?php
     return ob_get_clean();
 }
 
 
 // FUNCTION PRODUK
-function get_archive_produk()
+function wss_product()
 {
     ob_start();
     $post_id = get_the_ID();
     $image = wp_get_attachment_image_src(get_post_thumbnail_id($post_id), 'large');
-?>
-<div class="card bg-light p-3 border-0" style="--bs-bg-opacity: .5;">
-    <a href="<?php echo get_the_permalink(); ?>">
-        <div class="ratio ratio-4x3">
-            <img class="rounded sweet-child-ratio" src="<?php echo $image[0] ? $image[0] : ''; ?>"
-                alt="<?php echo get_the_title() ?>;">
-        </div>
-    </a>
-    <h2 class="judul-archive-mobil"><a href="<?php echo get_the_permalink(); ?>">
-            <?php echo get_the_title(); ?>
+    ?>
+    <div class="card bg-light p-3 border-0" style="--bs-bg-opacity: .5;">
+        <a href="<?php echo get_the_permalink(); ?>">
+            <div class="ratio ratio-4x3">
+                <img class="rounded sweet-child-ratio" src="<?php echo $image[0] ? $image[0] : ''; ?>"
+                    alt="<?php echo get_the_title() ?>;">
+            </div>
         </a>
-    </h2>
-    <small>Harga Mulai</small>
-    <h4 class="h5"><?php echo ambil_harga_pertama($post_id); ?></h3>
-        <a href="<?php echo esc_url(get_permalink()); ?>" class="btn btn-danger">Selengkapnya »</a>
-</div>
-<?php
+        <h2 class="judul-archive-mobil"><a href="<?php echo get_the_permalink(); ?>">
+                <?php echo get_the_title(); ?>
+            </a>
+        </h2>
+        <small>Harga Mulai</small>
+        <h4 class="h5"><?php echo wss_first_price($post_id); ?></h3>
+            <a href="<?php echo esc_url(get_permalink()); ?>" class="btn btn-danger">Selengkapnya »</a>
+    </div>
+    <?php
     return ob_get_clean();
 }
