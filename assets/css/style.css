@@ -32,6 +32,10 @@ iframe {
 .card-header h3 {
   font-size: 22px;
 }
+.table-pricelist th,
+.table-pricelist td {
+  border-color: #f3f3f3;
+}
 /* EDIT SINGLE SEPARTOR */
 .showinfo {
   border-top: 8px solid rgb(199, 5, 5);

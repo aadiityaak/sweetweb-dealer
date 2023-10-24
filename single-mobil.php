@@ -43,16 +43,16 @@ $container = get_theme_mod('sweetweb_container_type');
                         </div>
                         <div class="row mt-3">
                             <div class="col-md-8">
-                                <div class="card mb-4">
-                                    <div class="card-header">
+                                <div class="card mb-4 border-0 shadow-sm">
+                                    <div class="card-header border-0">
                                         <h3 class="mb-0">Special Features</h3>
                                     </div>
                                     <div class="card-body">
                                         <?php echo wss_list_feature(); ?>
                                     </div>
                                 </div>
-                                <div class="card">
-                                    <div class="card-header">
+                                <div class="card border-0 shadow-sm">
+                                    <div class="card-header border-0">
                                         <div class="row align-items-center">
                                             <div class="col-9">
                                                 <h3 class="mb-0">Galeri Gambar</h3>
@@ -78,8 +78,8 @@ $container = get_theme_mod('sweetweb_container_type');
                                     echo $video_html;
                                     ?>
                                 </div>
-                                <div class="card my-4">
-                                    <div class="card-header">
+                                <div class="card my-4 border-0 shadow-sm">
+                                    <div class="card-header border-0">
                                         <h2 class="judul-archive-mobil">
                                             <?php echo get_the_title(); ?>
                                         </h2>
@@ -95,29 +95,29 @@ $container = get_theme_mod('sweetweb_container_type');
                                 </div>
                             </div>
                             <div class="col-md">
-                                <div class="card mb-3" >
-                                        <div class="ratio" style="padding-bottom:130%;">
-                                                <?php 
-                                                    $value = get_theme_mod( 'sales_photo');
-                                                    echo '<img class="w-100 h-100 object-fit-cover" src="'.$value.'" class="card-img-top" alt="">';
-                                                ?>
-                                        </div>
-                                        <div class="card-body bg-primary text-white rounded">
-                                            <h5 class="card-title sales-name">
-                                                <?php 
-                                                    $value = get_theme_mod( 'sales_name');
-                                                    echo $value;
-                                                ?>
-                                            </h5>
-                                            <p class="card-text">
-                                                <?php 
-                                                    $value = get_theme_mod( 'sales_bio');
-                                                    echo $value;
-                                                ?>
-                                            </p>
-                                        </div>
+                                <div class="card mb-3 border-0 shadow-sm">
+                                    <div class="ratio" style="padding-bottom:130%;">
+                                            <?php 
+                                                $value = get_theme_mod( 'sales_photo');
+                                                echo '<img class="w-100 h-100 object-fit-cover rounded" src="'.$value.'" class="card-img-top" alt="">';
+                                            ?>
                                     </div>
-                                <div class="card">
+                                    <div class="card-body bg-primary text-white rounded">
+                                        <h5 class="card-title sales-name">
+                                            <?php 
+                                                $value = get_theme_mod( 'sales_name');
+                                                echo $value;
+                                            ?>
+                                        </h5>
+                                        <p class="card-text">
+                                            <?php 
+                                                $value = get_theme_mod( 'sales_bio');
+                                                echo $value;
+                                            ?>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="card border-0 shadow-sm">
                                     <div class="card-header bg-dark text-white">
                                         <div class="row align-items-center">
                                             <div class="col-9">
@@ -130,8 +130,8 @@ $container = get_theme_mod('sweetweb_container_type');
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="card-body">
-                                        <div class="text-center">
+                                    <div class="card-body p-0">
+                                        <div class="text-center py-2">
                                             <?php
                                             $total_types = wss_count_types();
                                             ?>
