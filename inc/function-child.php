@@ -127,17 +127,23 @@ function wss_gallery()
     ?>
     <div id="carouselExampleIndicators" class="carousel slide">
     <div class="carousel-indicators">
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-    </div>
-    <div class="carousel-inner">
-    <?php
-    $i = 1;
+        <?php
+        $i = 0;
         foreach ($gallery as $gal) {
             $image_url = wp_get_attachment_url($gal);
             $j = $i++;
-            $active =  ($j == 1) ? 'active' : '';
+            $active =  ($j == 0) ? 'active' : '';
+            echo '<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="'.$j.'" class="'.$active.'" aria-current="true" aria-label="Slide 1"></button>';
+        }
+        ?>
+    </div>
+    <div class="carousel-inner">
+    <?php
+        $i = 0;
+        foreach ($gallery as $gal) {
+            $image_url = wp_get_attachment_url($gal);
+            $j = $i++;
+            $active =  ($j == 0) ? 'active' : '';
             echo '<div class="carousel-item '.$active.'">';
                 echo '<div class="px-1 rounded d-block w-100">';
                     // echo '<a href="' . $image_url . '" class="glightbox" data-gallery="gallery1">';
@@ -283,7 +289,8 @@ function wss_product()
                     alt="<?php echo get_the_title() ?>;">
             </div>
         </a>
-        <h2 class="judul-archive-mobil"><a href="<?php echo get_the_permalink(); ?>">
+        <h2 >
+            <a href="<?php echo get_the_permalink(); ?>">
                 <?php echo get_the_title(); ?>
             </a>
         </h2>

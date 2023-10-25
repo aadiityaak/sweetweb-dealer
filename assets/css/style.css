@@ -12,6 +12,18 @@ h5,
 h6 {
   font-family: "Space Grotesk", sans-serif;
 }
+.heading-style {
+  position: relative;
+}
+.heading-style::after {
+  content: "";
+  position: absolute;
+  bottom: 0px;
+  left: 20px;
+  width: 100px;
+  height: 5px;
+  background-color: rgb(199, 5, 5);
+}
 /* ARCHIVE */
 .archive-title {
   font-size: 18px;
@@ -27,6 +39,7 @@ h6 {
 iframe {
   width: 100%;
 }
+
 /* SINGLE */
 .card-header h2,
 .card-header h3 {

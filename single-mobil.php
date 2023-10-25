@@ -22,13 +22,6 @@ $container = get_theme_mod('sweetweb_container_type');
             <div class="">
                 <?php
                 if (have_posts()) {
-                ?>
-                    <header class="page-header">
-                        <h1>
-                            <?php echo get_the_title(); ?>
-                        </h1>
-                    </header><!-- .page-header -->
-                    <?php
                     // Start the loop.
                     while (have_posts()) {
                         the_post();
@@ -36,26 +29,29 @@ $container = get_theme_mod('sweetweb_container_type');
                         $image = wp_get_attachment_image_src(get_post_thumbnail_id($post_id), 'large');
                         // print_r($image);
                     ?>
-                        <div class="">
-                            <div class="ratio ratio-21x9">
-                                <img class="rounded object-fit-cover w-100 h-100" src="<?php echo $image[0] ? $image[0] : ''; ?>" alt="<?php echo get_the_title() ?>;">
-                            </div>
-                        </div>
                         <div class="row mt-3">
                             <div class="col-md-8">
-                                <div class="card mb-4 border-0 shadow-sm">
-                                    <div class="card-header border-0">
-                                        <h3 class="mb-0">Special Features</h3>
+                                <div class="shadow-sm px-3 py-2 rounded mb-3 heading-style">
+                                    <h1 class="h3">
+                                        <?php echo get_the_title(); ?>
+                                    </h1>
+                                </div>
+                                <div class="ratio ratio-21x9 mb-3">
+                                    <img class="rounded object-fit-cover w-100 h-100" src="<?php echo $image[0] ? $image[0] : ''; ?>" alt="<?php echo get_the_title() ?>;">
+                                </div>
+                                <div class="card mb-3 border-0 shadow-sm">
+                                    <div class="card-header border-0 heading-style">
+                                        <h3>Special Features</h3>
                                     </div>
                                     <div class="card-body">
                                         <?php echo wss_list_feature(); ?>
                                     </div>
                                 </div>
-                                <div class="card border-0 shadow-sm">
-                                    <div class="card-header border-0">
+                                <div class="card border-0 mb-3 shadow-sm">
+                                    <div class="card-header border-0 heading-style">
                                         <div class="row align-items-center">
                                             <div class="col-9">
-                                                <h3 class="mb-0">Galeri Gambar</h3>
+                                                <h3>Galeri Gambar</h3>
                                             </div>
                                             <div class="col-3 text-end">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-camera-fill" viewBox="0 0 16 16">
@@ -69,7 +65,7 @@ $container = get_theme_mod('sweetweb_container_type');
                                         <?php echo wss_gallery() ?>
                                     </div>
                                 </div>
-                                <div class="my-3">
+                                <div class="mb-3">
                                     <?php
                                     // Panggil fungsi untuk mendapatkan video dalam elemen HTML dengan format oembed dari custom post meta dengan nama "video"
                                     $video_html = wss_get_video();
@@ -78,9 +74,9 @@ $container = get_theme_mod('sweetweb_container_type');
                                     echo $video_html;
                                     ?>
                                 </div>
-                                <div class="card my-4 border-0 shadow-sm">
-                                    <div class="card-header border-0">
-                                        <h2 class="judul-archive-mobil">
+                                <div class="card mb-3 border-0 shadow-sm">
+                                    <div class="card-header border-0 heading-style">
+                                        <h2 >
                                             <?php echo get_the_title(); ?>
                                         </h2>
                                     </div>
@@ -118,10 +114,10 @@ $container = get_theme_mod('sweetweb_container_type');
                                     </div>
                                 </div>
                                 <div class="card border-0 shadow-sm">
-                                    <div class="card-header bg-dark text-white">
+                                    <div class="card-header bg-dark text-white border-0 heading-style">
                                         <div class="row align-items-center">
                                             <div class="col-9">
-                                                <h3 class="mb-0">Daftar Harga</h3>
+                                                <h3>Daftar Harga</h3>
                                             </div>
                                             <div class="col-3 text-end">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-car-front-fill" viewBox="0 0 16 16">
