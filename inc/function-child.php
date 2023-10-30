@@ -14,23 +14,15 @@ function wss_first_price($post_id = null)
 {
     ob_start();
     $harga_array = get_post_meta($post_id, 'harga', true); // output array
-    if ($harga_array) {
-        foreach ($harga_array as $harga) {
-            $harga_mobil = isset($harga[1]) ? 'Rp ' . number_format(preg_replace("/[^0-9]/", "", $harga[1]), 2, ',', '.') : '-';
-            echo $harga_mobil;
-            break; // Exit the loop after the first iteration
-        }
-    } else {
-        echo '-'; // Output a dash if no price is found
-    }
-    return ob_get_clean(); // Capture and return the buffered output
+    $harga_mobil = isset($harga_array[0][1]) ? 'Rp ' . number_format(preg_replace("/[^0-9]/", "", $harga_array[0][1]), 2, ',', '.') : '-';
+    return $harga_mobil; // Capture and return the buffered output
 }
 
 
 //Fungsi Feature Spesial
-function wss_list_feature()
-{
-    $fitur_spesial_values = get_post_meta(get_the_ID(), 'fitur_spesial', true);
+function wss_list_feature() {
+    global $post;
+    $fitur_spesial_values = get_post_meta($post->ID, 'fitur_spesial', true);
 
     if (!empty($fitur_spesial_values) && is_array($fitur_spesial_values)) {
         $columns_per_row = 3;
@@ -52,21 +44,10 @@ function wss_list_feature()
 }
 
 // Fungsi total type mobil
-function wss_count_types()
-{
-    $harga_values = get_post_meta(get_the_ID(), 'harga', true);
-
-    $total_types = 0;
-    if (!empty($harga_values) && is_array($harga_values)) {
-        foreach ($harga_values as $harga_value) {
-            $types = $harga_value;
-            if (count($types) === 2) {
-                $total_types++;
-            }
-        }
-    }
-
-    return $total_types;
+function wss_count_types() {
+    global $post;
+    $harga_values = get_post_meta($post->ID, 'harga', true);
+    return count($harga_values);
 }
 
 
@@ -297,6 +278,70 @@ function wss_product()
         <small>Harga Mulai</small>
         <h4 class="h5"><?php echo wss_first_price($post_id); ?></h3>
             <a href="<?php echo esc_url(get_permalink()); ?>" class="btn btn-danger">Selengkapnya »</a>
+    </div>
+    <?php
+    return ob_get_clean();
+}
+
+function wss_daftar_harga(){
+    ob_start();
+    ?>
+    <div class="card border-0 shadow-sm">
+        <div class="card-header bg-dark text-white border-0 heading-style">
+            <div class="row align-items-center">
+                <div class="col-9">
+                    <h3>Daftar Harga</h3>
+                </div>
+                <div class="col-3 text-end">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-car-front-fill" viewBox="0 0 16 16">
+                        <path d="M2.52 3.515A2.5 2.5 0 0 1 4.82 2h6.362c1 0 1.904.596 2.298 1.515l.792 1.848c.075.175.21.319.38.404.5.25.855.715.965 1.262l.335 1.679c.033.161.049.325.049.49v.413c0 .814-.39 1.543-1 1.997V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.338c-1.292.048-2.745.088-4 .088s-2.708-.04-4-.088V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.892c-.61-.454-1-1.183-1-1.997v-.413a2.5 2.5 0 0 1 .049-.49l.335-1.68c.11-.546.465-1.012.964-1.261a.807.807 0 0 0 .381-.404l.792-1.848ZM3 10a1 1 0 1 0 0-2 1 1 0 0 0 0 2Zm10 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2ZM6 8a1 1 0 0 0 0 2h4a1 1 0 1 0 0-2H6ZM2.906 5.189a.51.51 0 0 0 .497.731c.91-.073 3.35-.17 4.597-.17 1.247 0 3.688.097 4.597.17a.51.51 0 0 0 .497-.731l-.956-1.913A.5.5 0 0 0 11.691 3H4.309a.5.5 0 0 0-.447.276L2.906 5.19Z" />
+                    </svg>
+                </div>
+            </div>
+        </div>
+        <div class="card-body p-0">
+            <div class="text-center py-2">
+                <?php
+                $total_types = wss_count_types();
+                ?>
+                <button type="button" class="btn btn-outline-dark rounded-pill">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/></svg> 
+                    Tersedia <?php echo $total_types; ?> Type
+                </button>
+            </div>
+            <div>
+                <?php echo wss_price(); ?>
+            </div>
+        </div>
+    </div>
+    <?php
+    return ob_get_clean();
+}
+
+function wss_data_sales() {
+    ob_start();
+    ?>
+    <div class="card mb-3 border-0 shadow-sm">
+        <div class="ratio" style="padding-bottom:130%;">
+                <?php 
+                    $value = get_theme_mod( 'sales_photo');
+                    echo '<img class="w-100 h-100 object-fit-cover rounded" src="'.$value.'" class="card-img-top" alt="">';
+                ?>
+        </div>
+        <div class="card-body bg-primary text-white rounded">
+            <h5 class="card-title sales-name">
+                <?php 
+                    $value = get_theme_mod( 'sales_name');
+                    echo $value;
+                ?>
+            </h5>
+            <p class="card-text">
+                <?php 
+                    $value = get_theme_mod( 'sales_bio');
+                    echo $value;
+                ?>
+            </p>
+        </div>
     </div>
     <?php
     return ob_get_clean();

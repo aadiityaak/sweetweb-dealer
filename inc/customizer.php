@@ -49,8 +49,8 @@ new \Kirki\Panel(
  * @link https://docs.themeum.com/kirki/getting-started/panels-sections/
  */
 $sections = [
-    'global'      => [ esc_html__( 'Style', 'kirki' ), '' ],
-	'sales'      => [ esc_html__( 'Sales', 'kirki' ), '' ],
+    'global'      => [ esc_html__( 'Global', 'kirki' ), '' ],
+	'sales'      => [ esc_html__( 'Data Dealer', 'kirki' ), '' ],
 ];
 
 foreach ( $sections as $section_id => $section ) {
@@ -65,6 +65,23 @@ foreach ( $sections as $section_id => $section ) {
 	new \Kirki\Section( str_replace( '-', '_', $section_id ) . '_section', $section_args );
 }
 
+new \Kirki\Field\Number(
+	[
+		'settings'    => 'container',
+		'label'       => esc_html__( 'Slider Control', 'kirki' ),
+		'description' => esc_html__( 'Lebar Website', 'kirki' ),
+		'section'     => 'global_section',
+		'default'     => '1100',
+		'transport'   => 'postMessage',
+		'output'   => [
+			[
+				'element'  => '.container',
+				'property' => 'max-width',
+				'suffix'   => 'px !important',
+			],
+		],
+	]
+);
 
 new \Kirki\Field\Color(
 	[
@@ -79,7 +96,7 @@ new \Kirki\Field\Color(
 		],
 		'output'   => [
 			[
-				'element'  => '.bg-primary',
+				'element'  => '.bg-primary, .archive-title::after',
 				'property' => 'background-color',
 				'suffix'   => ' !important',
 			],

@@ -31,7 +31,7 @@ $container = get_theme_mod('sweetweb_container_type');
                     ?>
                         <div class="row mt-3">
                             <div class="col-md-8">
-                                <div class="shadow-sm px-3 py-2 rounded mb-3 heading-style">
+                                <div class="shadow-sm px-3 py-2 bg-white rounded mb-3 heading-style">
                                     <h1 class="h3">
                                         <?php echo get_the_title(); ?>
                                     </h1>
@@ -91,56 +91,10 @@ $container = get_theme_mod('sweetweb_container_type');
                                 </div>
                             </div>
                             <div class="col-md">
-                                <div class="card mb-3 border-0 shadow-sm">
-                                    <div class="ratio" style="padding-bottom:130%;">
-                                            <?php 
-                                                $value = get_theme_mod( 'sales_photo');
-                                                echo '<img class="w-100 h-100 object-fit-cover rounded" src="'.$value.'" class="card-img-top" alt="">';
-                                            ?>
-                                    </div>
-                                    <div class="card-body bg-primary text-white rounded">
-                                        <h5 class="card-title sales-name">
-                                            <?php 
-                                                $value = get_theme_mod( 'sales_name');
-                                                echo $value;
-                                            ?>
-                                        </h5>
-                                        <p class="card-text">
-                                            <?php 
-                                                $value = get_theme_mod( 'sales_bio');
-                                                echo $value;
-                                            ?>
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="card border-0 shadow-sm">
-                                    <div class="card-header bg-dark text-white border-0 heading-style">
-                                        <div class="row align-items-center">
-                                            <div class="col-9">
-                                                <h3>Daftar Harga</h3>
-                                            </div>
-                                            <div class="col-3 text-end">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-car-front-fill" viewBox="0 0 16 16">
-                                                    <path d="M2.52 3.515A2.5 2.5 0 0 1 4.82 2h6.362c1 0 1.904.596 2.298 1.515l.792 1.848c.075.175.21.319.38.404.5.25.855.715.965 1.262l.335 1.679c.033.161.049.325.049.49v.413c0 .814-.39 1.543-1 1.997V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.338c-1.292.048-2.745.088-4 .088s-2.708-.04-4-.088V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.892c-.61-.454-1-1.183-1-1.997v-.413a2.5 2.5 0 0 1 .049-.49l.335-1.68c.11-.546.465-1.012.964-1.261a.807.807 0 0 0 .381-.404l.792-1.848ZM3 10a1 1 0 1 0 0-2 1 1 0 0 0 0 2Zm10 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2ZM6 8a1 1 0 0 0 0 2h4a1 1 0 1 0 0-2H6ZM2.906 5.189a.51.51 0 0 0 .497.731c.91-.073 3.35-.17 4.597-.17 1.247 0 3.688.097 4.597.17a.51.51 0 0 0 .497-.731l-.956-1.913A.5.5 0 0 0 11.691 3H4.309a.5.5 0 0 0-.447.276L2.906 5.19Z" />
-                                                </svg>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-body p-0">
-                                        <div class="text-center py-2">
-                                            <?php
-                                            $total_types = wss_count_types();
-                                            ?>
-                                            <button type="button" class="btn btn-outline-dark rounded-pill">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/></svg> 
-                                                Tersedia <?php echo $total_types; ?> Type
-                                            </button>
-                                        </div>
-                                        <div>
-                                            <?php echo wss_price(); ?>
-                                        </div>
-                                    </div>
-                                </div>
+                                <?php
+                                echo wss_data_sales();
+                                echo wss_daftar_harga();
+                                ?>
                             </div>
                         </div>
                 <?php
